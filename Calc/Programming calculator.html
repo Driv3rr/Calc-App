@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmer Calculator</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #111; color: #fff; margin: 0; padding: 20px; }
+        header, footer { margin-bottom: 20px; text-align: center; }
+        header h1, footer p { color: #FFD700; }
+        nav { margin-bottom: 20px; }
+        nav a { color: #FFD700; text-decoration: none; font-size: 18px; margin: 0 10px; }
+        nav a:hover { text-decoration: underline; }
+        .calc { background: #222; padding: 20px; border-radius: 10px; box-shadow: 0 0 15px rgba(255,255,255,.2); width: 350px; margin: auto; }
+        label, input, select, button { display: block; width: 100%; margin: 10px 0; font-size: 16px; }
+        input, select { padding: 10px; background: #333; color: #fff; border: none; border-radius: 5px; text-align: center; }
+        button { padding: 10px; background: #f90; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #fc0; }
+        .result { margin-top: 10px; font-size: 18px; color: #FFD700; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Programmer Calculator</h1>
+    </header>
+    <nav>
+        <a href="Calc App.html">Home</a>
+        <a href="about us.html">About Us</a>
+        <a href="types of calculator.html">Types of Calculators</a>
+    </nav>
+
+    <div class="calc">
+        <label for="number">Enter Number:</label>
+        <input type="text" id="number" placeholder="Enter a number">
+
+        <label for="base">Select Base:</label>
+        <select id="base">
+            <option value="2">Binary</option>
+            <option value="8">Octal</option>
+            <option value="10" selected>Decimal</option>
+            <option value="16">Hexadecimal</option>
+        </select>
+
+        <button onclick="convert()">Convert</button>
+
+        <div class="result" id="conversionResult"></div>
+
+        <h3>Bitwise Operations</h3>
+        <label for="num1">First Number (Decimal):</label>
+        <input type="number" id="num1" placeholder="Enter first number">
+
+        <label for="num2">Second Number (Decimal):</label>
+        <input type="number" id="num2" placeholder="Enter second number">
+
+        <button onclick="bitwiseAND()">AND (&)</button>
+        <button onclick="bitwiseOR()">OR (|)</button>
+        <button onclick="bitwiseXOR()">XOR (^)</button>
+        <button onclick="bitwiseNOT()">NOT (~)</button>
+
+        <div class="result" id="bitwiseResult"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Calc App.</p>
+    </footer>
+
+    <script>
+        function convert() {
+            let number = document.getElementById("number").value;
+            let base = parseInt(document.getElementById("base").value);
+
+            if (isNaN(parseInt(number, base))) {
+                document.getElementById("conversionResult").innerHTML = "Invalid input!";
+                return;
+            }
+
+            let decimal = parseInt(number, base);
+            let binary = decimal.toString(2);
+            let octal = decimal.toString(8);
+            let hex = decimal.toString(16).toUpperCase();
+
+            document.getElementById("conversionResult").innerHTML = `
+                Binary: ${binary} <br>
+                Octal: ${octal} <br>
+                Decimal: ${decimal} <br>
+                Hexadecimal: ${hex}
+            `;
+        }
+
+        function bitwiseAND() {
+            let a = parseInt(document.getElementById("num1").value);
+            let b = parseInt(document.getElementById("num2").value);
+            document.getElementById("bitwiseResult").innerHTML = `Result: ${a & b}`;
+        }
+
+        function bitwiseOR() {
+            let a = parseInt(document.getElementById("num1").value);
+            let b = parseInt(document.getElementById("num2").value);
+            document.getElementById("bitwiseResult").innerHTML = `Result: ${a | b}`;
+        }
+
+        function bitwiseXOR() {
+            let a = parseInt(document.getElementById("num1").value);
+            let b = parseInt(document.getElementById("num2").value);
+            document.getElementById("bitwiseResult").innerHTML = `Result: ${a ^ b}`;
+        }
+
+        function bitwiseNOT() {
+            let a = parseInt(document.getElementById("num1").value);
+            document.getElementById("bitwiseResult").innerHTML = `Result: ${~a}`;
+        }
+    </script>
+</body>
+</html>

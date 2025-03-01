@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Calculator</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #111; color: #fff; margin: 0; padding: 20px; }
+        header, footer { margin-bottom: 20px; text-align: center; }
+        header h1, footer p { color: #FFD700; }
+        nav { margin-bottom: 20px; }
+        nav a { color: #FFD700; text-decoration: none; font-size: 18px; margin: 0 10px; }
+        nav a:hover { text-decoration: underline; }
+        .calc { background: #222; padding: 20px; border-radius: 10px; box-shadow: 0 0 15px rgba(255,255,255,.2); width: 350px; margin: auto; }
+        label, input, select, button { display: block; width: 100%; margin: 10px 0; font-size: 16px; }
+        input, select { padding: 10px; background: #333; color: #fff; border: none; border-radius: 5px; }
+        button { padding: 10px; background: #f90; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #fc0; }
+        .result { margin-top: 10px; font-size: 18px; color: #FFD700; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Financial Calculator</h1>
+    </header>
+    <nav>
+        <a href="Calc App.html">Home</a>
+        <a href="about us.html">About Us</a>
+         <a href="types of calculator.html">Types of Calculators</a>
+    </nav>
+
+    <div class="calc">
+        <label for="calcType">Select Calculation Type:</label>
+        <select id="calcType" onchange="updateForm()">
+            <option value="simpleInterest">Simple Interest</option>
+            <option value="compoundInterest">Compound Interest</option>
+            <option value="loanPayment">Loan Payment</option>
+            <option value="futureValue">Future Value</option>
+        </select>
+
+        <div id="formFields">
+            <label for="principal">Principal Amount (₱):</label>
+            <input type="number" id="principal" placeholder="Enter amount">
+            
+            <label for="rate">Annual Interest Rate (%):</label>
+            <input type="number" id="rate" placeholder="Enter interest rate">
+            
+            <label for="time">Time (years):</label>
+            <input type="number" id="time" placeholder="Enter time in years">
+            
+            <div id="compoundField" style="display: none;">
+                <label for="compoundFreq">Compounds Per Year:</label>
+                <input type="number" id="compoundFreq" placeholder="e.g., 12 for monthly">
+            </div>
+
+            <button onclick="calculate()">Calculate</button>
+        </div>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Calc App.</p>
+    </footer>
+
+    <script>
+        function updateForm() {
+            const calcType = document.getElementById("calcType").value;
+            document.getElementById("compoundField").style.display = (calcType === "compoundInterest") ? "block" : "none";
+        }
+
+        function calculate() {
+            const calcType = document.getElementById("calcType").value;
+            const P = parseFloat(document.getElementById("principal").value);
+            const r = parseFloat(document.getElementById("rate").value) / 100;
+            const t = parseFloat(document.getElementById("time").value);
+            let resultText = "";
+
+            if (calcType === "simpleInterest") {
+                const SI = P * r * t;
+                resultText = `Simple Interest: ₱${SI.toFixed(2)}`;
+            } 
+            else if (calcType === "compoundInterest") {
+                const n = parseFloat(document.getElementById("compoundFreq").value);
+                const A = P * Math.pow((1 + r / n), n * t);
+                resultText = `Compound Interest: ₱${(A - P).toFixed(2)}<br>Total Amount: ₱${A.toFixed(2)}`;
+            } 
+            else if (calcType === "loanPayment") {
+                const monthlyRate = r / 12;
+                const months = t * 12;
+                const payment = (P * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+                resultText = `Monthly Payment: ₱${payment.toFixed(2)}`;
+            } 
+            else if (calcType === "futureValue") {
+                const FV = P * Math.pow((1 + r), t);
+                resultText = `Future Value: ₱${FV.toFixed(2)}`;
+            }
+
+            document.getElementById("result").innerHTML = resultText;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+
+
+<!DOCTYPE html><html lang="en">  <head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Calc App</title>  
+<style>  
+body { font-family: sans-serif; text-align: center; background: #111; color: #fff; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; }  
+header, footer { margin-bottom: 20px; text-align: center; }  
+header h1, footer p { color: #FFD700; }  
+nav { margin-bottom: 20px; }  
+nav a { color: #FFD700; text-decoration: none; margin: 0 10px; font-size: 18px; }  
+nav a:hover { text-decoration: underline; }  
+.calc { background: #222; padding: 20px; border-radius: 10px; box-shadow: 0 0 15px rgba(255,255,255,.2); width: 320px; display: flex; flex-direction: column; align-items: center; }  
+input { width: 90%; height: 60px; text-align: right; font-size: 24px; padding: 10px; border: none; outline: none; background: #333; color: #fff; border-radius: 5px; margin-bottom: 15px; }  
+.btns { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; }  
+button { width: 100%; height: 60px; font-size: 20px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; background: #444; color: #fff; transition: .2s; }  
+button:hover { background: #666; }  
+.eq { background: #f90; color: #000; }  
+.eq:hover { background: #fc0; }  
+.clr { background: #f33; }  
+.clr:hover { background: #f66; }  
+.del { background: #555; }  
+.del:hover { background: #777; }  
+</style>  
+</head>  
+<body>  
+<header>  
+<h1>Calc App</h1>  
+<nav>  
+<a href="#calculator">Home</a>  
+<a href="about us.html">About Us</a>  
+  <a href="types of calculator.html">Types of Calculators</a>
+</nav>  
+</header>  
+  
+  <header><body><h1>Basic Calculator</h1></body></header>
+  
+  
+<div id="calculator" class="calc">  
+<input type="text" id="disp" disabled>  
+<div class="btns">  
+<button class="clr" onclick="c()">C</button>  
+<button class="del" onclick="del()">⌫</button>  
+<button onclick="a('%')">%</button>  
+<button onclick="a('/')">÷</button>  
+<button onclick="a('7')">7</button>  
+<button onclick="a('8')">8</button>  
+<button onclick="a('9')">9</button>  
+<button onclick="a('*')">×</button>  
+<button onclick="a('4')">4</button>  
+<button onclick="a('5')">5</button>  
+<button onclick="a('6')">6</button>  
+<button onclick="a('-')">−</button>  
+<button onclick="a('1')">1</button>  
+<button onclick="a('2')">2</button>  
+<button onclick="a('3')">3</button>  
+<button onclick="a('+')">+</button>  
+<button onclick="a('0')">0</button>  
+<button onclick="a('.')">.</button>  
+<button class="eq" onclick="e()">=</button>  
+</div>  
+</div>  
+<section id="about" style="margin-top:20px; text-align:center; max-width:400px;">  
+
+</section>  
+<section id="types" style="margin-top:20px; text-align:center; max-width:600px;">  
+
+</section>  
+<footer>  
+<p>&copy; 2025 Calc App.</p>  
+</footer>  
+<script>  
+const d = document.getElementById("disp");  
+const a = v => d.value += v;  
+const c = () => d.value = "";  
+const del = () => d.value = d.value.slice(0, -1);  
+const e = () => { try { d.value = eval(d.value.replace('%', '/100')) } catch { d.value = "Error" } };  
+document.addEventListener("keydown", (event) => { if ("0123456789+-*/.%".includes(event.key)) { a(event.key); } else if (event.key === "Enter") { e(); } else if (event.key === "Backspace") { del(); } else if (event.key === "Escape") { c(); } });  
+</script>  
+</body>  
+</html>  
